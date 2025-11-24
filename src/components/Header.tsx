@@ -9,6 +9,7 @@ const Header = () => {
     <header className="bg-background border-b border-border">
       <div className="container mx-auto px-4 py-6">
         <div className="flex flex-col items-center gap-6">
+
           {/* Logo */}
           <div className="flex flex-col items-center gap-2">
             <img 
@@ -20,13 +21,14 @@ const Header = () => {
               Deutschlands größtes Lager für Pumpen und Ersatzteile
             </p>
           </div>
-          
-          {/* Banner mit CTAs */}
+
+          {/* CTA Banner */}
           <div className="w-full bg-gradient-to-r from-primary/5 via-accent/5 to-primary/5 border border-border rounded-lg p-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-stretch">
-              {/* Blitzanfrage starten */}
+
+              {/* Blitzanfrage */}
               <a
-                href="https://wa.me/4974719429450"
+                href="https://wa.me/4915223662354"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group h-full"
@@ -47,21 +49,13 @@ const Header = () => {
 
               {/* Direkt anrufen */}
               <a
-                href="tel:+4974719429450"
+                href="tel:+4915223662354"
                 className="group h-full"
               >
                 <div className="flex flex-col items-center gap-3 p-6 bg-background border-2 border-primary rounded-lg hover:shadow-lg transition-all duration-200 hover:scale-105 h-full">
                   <div className="flex -space-x-3 mb-2">
-                    <img 
-                      src={technicianTorben} 
-                      alt="Torben Maier" 
-                      className="w-16 h-16 rounded-full border-3 border-background object-cover"
-                    />
-                    <img 
-                      src={technicianSebastian} 
-                      alt="Sebastian Treck" 
-                      className="w-16 h-16 rounded-full border-3 border-background object-cover"
-                    />
+                    <img src={technicianTorben} alt="Torben Maier" className="w-16 h-16 rounded-full border-3 border-background object-cover" />
+                    <img src={technicianSebastian} alt="Sebastian Treck" className="w-16 h-16 rounded-full border-3 border-background object-cover" />
                   </div>
                   <h3 className="font-bold text-lg text-center">Direkt anrufen</h3>
                   <p className="text-sm text-muted-foreground text-center">
@@ -72,14 +66,14 @@ const Header = () => {
                     <span>3 Personen in der Hotline – bitte kurz warten</span>
                   </div>
                   <p className="text-sm font-semibold text-primary text-center">
-                    +49 (0) 7471 9429450
+                    +49 1522 3662354
                   </p>
                 </div>
               </a>
 
-              {/* Per WhatsApp schreiben */}
+              {/* WhatsApp schreiben */}
               <a
-                href="https://wa.me/4974719429450"
+                href="https://wa.me/4915223662354"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group h-full"
@@ -99,8 +93,10 @@ const Header = () => {
                   </div>
                 </div>
               </a>
+
             </div>
           </div>
+
         </div>
       </div>
     </header>
