@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Solarics B2B Color System */
+    --background: 0 0% 100%;
+    --foreground: 60 2% 24%; /* Anthracite #3C3C3B */
+
+    --card: 0 0% 100%;
+    --card-foreground: 60 2% 24%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 60 2% 24%;
+
+    /* Solarics Blue as primary brand color */
+    --primary: 204 72% 20%; /* #0E3A5A */
+    --primary-foreground: 0 0% 100%;
+
+    /* Light gray-blue for secondary surfaces */
+    --secondary: 197 24% 86%; /* #D3DEE2 */
+    --secondary-foreground: 204 72% 20%;
+
+    --muted: 197 24% 90%;
+    --muted-foreground: 60 2% 40%;
+
+    /* Solarics Yellow for CTAs and accents */
+    --accent: 48 100% 50%; /* #FDC300 */
+    --accent-foreground: 204 72% 20%;
+
+    /* Solarics Green for success states */
+    --success: 78 60% 50%; /* #95C23D */
+    --success-foreground: 0 0% 100%;
+
+    /* Leuchteblau for highlights */
+    --highlight: 200 68% 54%; /* #3AA1DB */
+    --highlight-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 197 24% 82%;
+    --input: 197 24% 86%;
+    --ring: 204 72% 20%;
+
+    --radius: 0.375rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 204 72% 12%;
+    --foreground: 0 0% 95%;
+
+    --card: 204 72% 15%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 204 72% 15%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 0 0% 98%;
+    --primary-foreground: 204 72% 20%;
+
+    --secondary: 204 40% 20%;
+    --secondary-foreground: 0 0% 95%;
+
+    --muted: 204 40% 18%;
+    --muted-foreground: 197 24% 70%;
+
+    --accent: 48 100% 50%;
+    --accent-foreground: 204 72% 20%;
+
+    --success: 78 60% 50%;
+    --success-foreground: 0 0% 100%;
+
+    --highlight: 200 68% 54%;
+    --highlight-foreground: 0 0% 100%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 95%;
+
+    --border: 204 40% 22%;
+    --input: 204 40% 20%;
+    --ring: 48 100% 50%;
+    
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-heebo;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold text-primary;
+  }
+}
