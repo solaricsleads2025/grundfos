@@ -18,18 +18,43 @@ const ContactFormSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+  e.preventDefault();
+  setIsSubmitting(true);
 
-    setTimeout(() => {
+  const formData = new FormData(e.currentTarget);
+
+  try {
+    const response = await fetch("https://formspree.io/f/manzqjyp", {
+      method: "POST",
+      body: formData,
+      headers: {
+        Accept: "application/json",
+      },
+    });
+
+    if (response.ok) {
       toast({
         title: "Anfrage erfolgreich gesendet!",
         description: "Wir melden uns schnellstmöglich bei Ihnen.",
       });
-      setIsSubmitting(false);
-    }, 1000);
-  };
+      e.currentTarget.reset();
+    } else {
+      toast({
+        title: "Fehler",
+        description: "Ihre Anfrage konnte nicht gesendet werden.",
+        variant: "destructive",
+      });
+    }
+  } catch {
+    toast({
+      title: "Fehler",
+      description: "Es gab ein Problem beim Senden der Anfrage.",
+      variant: "destructive",
+    });
+  }
 
+  setIsSubmitting(false);
+};
   return (
     <section id="contact-form" className="py-16 bg-background">
       <div className="container mx-auto px-4">
