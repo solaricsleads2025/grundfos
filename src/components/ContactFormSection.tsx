@@ -18,43 +18,44 @@ const ContactFormSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
-  setIsSubmitting(true);
+    e.preventDefault();
+    setIsSubmitting(true);
 
-  const formData = new FormData(e.currentTarget);
+    const formData = new FormData(e.currentTarget);
 
-  try {
-    const response = await fetch("https://formspree.io/f/manzqjyp", {
-      method: "POST",
-      body: formData,
-      headers: {
-        Accept: "application/json",
-      },
-    });
-
-    if (response.ok) {
-      toast({
-        title: "Anfrage erfolgreich gesendet!",
-        description: "Wir melden uns schnellstmöglich bei Ihnen.",
+    try {
+      const response = await fetch("https://formspree.io/f/manzqjyp", {
+        method: "POST",
+        body: formData,
+        headers: {
+          Accept: "application/json",
+        },
       });
-      e.currentTarget.reset();
-    } else {
+
+      if (response.ok) {
+        toast({
+          title: "Anfrage erfolgreich gesendet!",
+          description: "Wir melden uns schnellstmöglich bei Ihnen.",
+        });
+        e.currentTarget.reset();
+      } else {
+        toast({
+          title: "Fehler",
+          description: "Ihre Anfrage konnte nicht gesendet werden.",
+          variant: "destructive",
+        });
+      }
+    } catch {
       toast({
         title: "Fehler",
-        description: "Ihre Anfrage konnte nicht gesendet werden.",
+        description: "Es gab ein Problem beim Senden der Anfrage.",
         variant: "destructive",
       });
     }
-  } catch {
-    toast({
-      title: "Fehler",
-      description: "Es gab ein Problem beim Senden der Anfrage.",
-      variant: "destructive",
-    });
-  }
 
-  setIsSubmitting(false);
-};
+    setIsSubmitting(false);
+  };
+
   return (
     <section id="contact-form" className="py-16 bg-background">
       <div className="container mx-auto px-4">
@@ -64,28 +65,38 @@ const ContactFormSection = () => {
               Jetzt Grundfos CR Pumpe oder Ersatzteil anfragen
             </h2>
             <p className="text-lg text-foreground">
-              Schicken Sie uns Ihre Daten oder rufen Sie direkt an. Wir melden uns schnell mit einer konkreten Lösung – Ihr Angebot erhalten Sie in der Regel binnen{" "}
-              <span className="font-bold text-accent-foreground">15 Minuten</span> (werktags während unserer Servicezeiten).
+              Schicken Sie uns Ihre Daten oder rufen Sie direkt an. Wir melden
+              uns schnell mit einer konkreten Lösung – Ihr Angebot erhalten Sie
+              in der Regel binnen{" "}
+              <span className="font-bold text-accent-foreground">
+                15 Minuten
+              </span>{" "}
+              (werktags während unserer Servicezeiten).
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="bg-card border border-border rounded-lg p-8 space-y-6">
+          <form
+            onSubmit={handleSubmit}
+            className="bg-card border border-border rounded-lg p-8 space-y-6"
+          >
             <div className="grid md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <Label htmlFor="cf-company">Firma / Name *</Label>
-                <Input 
-                  id="cf-company" 
-                  required 
+                <Input
+                  id="cf-company"
+                  name="company"
+                  required
                   placeholder="Ihre Firma oder Name"
                 />
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="cf-email">E-Mail *</Label>
-                <Input 
-                  id="cf-email" 
+                <Input
+                  id="cf-email"
+                  name="email"
                   type="email"
-                  required 
+                  required
                   placeholder="ihre@email.de"
                 />
               </div>
@@ -94,17 +105,18 @@ const ContactFormSection = () => {
             <div className="grid md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <Label htmlFor="cf-phone">Telefon *</Label>
-                <Input 
-                  id="cf-phone" 
+                <Input
+                  id="cf-phone"
+                  name="phone"
                   type="tel"
-                  required 
+                  required
                   placeholder="+49 ..."
                 />
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="cf-application">Einsatzbereich</Label>
-                <Select>
+                <Select name="application">
                   <SelectTrigger id="cf-application">
                     <SelectValue placeholder="Bitte wählen" />
                   </SelectTrigger>
@@ -122,8 +134,9 @@ const ContactFormSection = () => {
 
             <div className="space-y-2">
               <Label htmlFor="cf-pump-type">Grundfos Typ (falls bekannt)</Label>
-              <Input 
-                id="cf-pump-type" 
+              <Input
+                id="cf-pump-type"
+                name="pump_type"
                 placeholder="z.B. CR 5-4, CRE 15-2"
               />
             </div>
@@ -133,13 +146,15 @@ const ContactFormSection = () => {
                 <div className="border-2 border-dashed border-border rounded-md p-6 hover:border-primary transition-colors text-center">
                   <Upload className="h-8 w-8 mx-auto mb-2 text-muted-foreground" />
                   <span className="text-sm text-muted-foreground">
-                    Foto vom Typenschild / Anlage hochladen (klicken oder ziehen)
+                    Foto vom Typenschild / Anlage hochladen (klicken oder
+                    ziehen)
                   </span>
                 </div>
               </Label>
-              <Input 
-                id="cf-file-upload" 
-                type="file" 
+              <Input
+                id="cf-file-upload"
+                name="images"
+                type="file"
                 className="hidden"
                 accept="image/*"
                 multiple
@@ -147,36 +162,45 @@ const ContactFormSection = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="cf-description">Bitte beschreiben Sie kurz Ihre Anwendung / Ihr Projekt</Label>
-              <Textarea 
-                id="cf-description" 
+              <Label htmlFor="cf-description">
+                Bitte beschreiben Sie kurz Ihre Anwendung / Ihr Projekt
+              </Label>
+              <Textarea
+                id="cf-description"
+                name="description"
                 rows={4}
                 placeholder="Medium, Temperatur, Fördermenge, Förderhöhe, besondere Anforderungen..."
               />
             </div>
 
-            <Button 
-              type="submit" 
-              variant="cta" 
-              size="lg" 
+            <Button
+              type="submit"
+              variant="cta"
+              size="lg"
               className="w-full"
               disabled={isSubmitting}
             >
               {isSubmitting ? "Wird gesendet..." : "Anfrage absenden"}
             </Button>
 
+            {/* UPDATED CONTACT BUTTONS */}
             <div className="border-t border-border pt-6 space-y-3">
-              <p className="text-center font-medium text-foreground">Oder jetzt direkt kontaktieren:</p>
+              <p className="text-center font-medium text-foreground">
+                Oder jetzt direkt kontaktieren:
+              </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Button variant="outline" size="lg" asChild>
-                  <a href="tel:+4974719429450" className="flex items-center gap-2">
+                  <a
+                    href="tel:+4915223662354"
+                    className="flex items-center gap-2"
+                  >
                     <Phone className="h-4 w-4" />
-                    Jetzt anrufen: +49 (0) 7471-94294-50
+                    Jetzt anrufen: +49 1522 3662354
                   </a>
                 </Button>
                 <Button variant="outline" size="lg" asChild>
-                  <a 
-                    href="https://wa.me/4974719429450" 
+                  <a
+                    href="https://wa.me/4915223662354"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2"
