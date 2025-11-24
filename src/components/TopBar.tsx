@@ -5,9 +5,10 @@ const TopBar = () => {
     <div className="bg-gradient-to-r from-primary via-primary to-highlight text-primary-foreground sticky top-0 z-50 shadow-md">
       <div className="container mx-auto px-4 py-3">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center text-center md:text-left">
+
           {/* Hotline */}
           <a 
-            href="tel:+4974719429450" 
+            href="tel:+4915223662354" 
             className="flex items-center justify-center md:justify-start gap-3 hover:opacity-80 transition-opacity group"
           >
             <div className="rounded-full bg-white/20 p-2 group-hover:bg-white/30 transition-colors">
@@ -15,13 +16,13 @@ const TopBar = () => {
             </div>
             <div>
               <div className="text-xs opacity-90">Hotline</div>
-              <div className="font-bold">+49 (0) 7471 9429450</div>
+              <div className="font-bold">+49 1522 3662354</div>
             </div>
           </a>
           
           {/* WhatsApp */}
           <a 
-            href="https://wa.me/4974719429450" 
+            href="https://wa.me/4915223662354" 
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center md:justify-center gap-3 hover:opacity-80 transition-opacity group"
@@ -39,8 +40,8 @@ const TopBar = () => {
               <div className="font-bold">Blitzanfrage per WhatsApp</div>
             </div>
           </a>
-          
-          {/* Techniker Online Status */}
+
+          {/* Techniker Status */}
           <div className="flex items-center justify-center md:justify-end gap-3">
             <div className="rounded-full bg-white/20 p-2">
               <Clock className="h-5 w-5" />
@@ -58,6 +59,7 @@ const TopBar = () => {
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </div>
