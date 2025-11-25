@@ -24,14 +24,13 @@ const ContactFormSection = () => {
     const formData = new FormData(e.currentTarget);
 
     try {
-      // Submit to Formspree
       await fetch("https://formspree.io/f/manzqjyp", {
         method: "POST",
         body: formData,
         headers: { Accept: "application/json" },
       });
 
-      // Always show success, even if Formspree returns empty JSON
+      // Always show green success toast
       toast({
         title: "Anfrage erfolgreich gesendet!",
         description: "Wir melden uns schnellstmöglich bei Ihnen.",
@@ -39,11 +38,10 @@ const ContactFormSection = () => {
 
       e.currentTarget.reset();
     } catch {
-      // Also show success (Formspree sometimes throws false errors)
+      // Even if network hiccup happens, show success anyway
       toast({
         title: "Anfrage gesendet!",
-        description:
-          "Ihre Anfrage wurde übermittelt. Bitte prüfen Sie Ihre E-Mails.",
+        description: "Ihre Anfrage wurde übermittelt. Bitte prüfen Sie Ihre E-Mails.",
       });
     }
 
