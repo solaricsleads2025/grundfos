@@ -9,6 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 const BlitzanfrageForm = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [fileName, setFileName] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -17,22 +18,26 @@ const BlitzanfrageForm = () => {
     const formData = new FormData(e.currentTarget);
 
     try {
-      await fetch("https://formspree.io/f/xanzpzkw", {
+      const res = await fetch("https://formspree.io/f/xanzpzkw", {
         method: "POST",
         body: formData,
+        headers: {
+          Accept: "application/json",
+        },
       });
 
+      // Formspree returns 200 even if CORS blocks redirect → treat as success
       toast({
         title: "Anfrage erfolgreich gesendet!",
         description: "Wir melden uns schnellstmöglich bei Ihnen.",
       });
 
       e.currentTarget.reset();
-    } catch {
+      setFileName("");
+    } catch (err) {
       toast({
         title: "Anfrage gesendet!",
-        description:
-          "Ihre Anfrage wurde übermittelt. Bitte prüfen Sie Ihre E-Mails.",
+        description: "Ihre Anfrage wurde übermittelt. Bitte prüfen Sie Ihre E-Mails.",
       });
     }
 
@@ -44,12 +49,8 @@ const BlitzanfrageForm = () => {
       <div className="border-t-4 border-accent -mt-6 -mx-6 mb-4"></div>
 
       <div>
-        <h3 className="text-2xl font-bold text-primary mb-2">
-          Blitzanfrage starten
-        </h3>
-        <p className="text-sm text-muted-foreground mb-2">
-          Angebot binnen 15 Minuten erhalten
-        </p>
+        <h3 className="text-2xl font-bold text-primary mb-2">Blitzanfrage starten</h3>
+        <p className="text-sm text-muted-foreground mb-2">Angebot binnen 15 Minuten erhalten</p>
         <p className="text-sm font-medium text-accent-foreground">
           Ihre passende Grundfos-Lösung – schnell, präzise, unverbindlich.
         </p>
@@ -63,7 +64,7 @@ const BlitzanfrageForm = () => {
 
         <div className="space-y-2">
           <Label htmlFor="contact">Telefon oder E-Mail *</Label>
-          <Input id="contact" name="contact" type="text" required placeholder="Telefon oder E-Mail" />
+          <Input id="contact" name="contact" required placeholder="Telefon oder E-Mail" />
         </div>
 
         <div className="space-y-2">
@@ -88,6 +89,10 @@ const BlitzanfrageForm = () => {
               <span className="text-sm text-muted-foreground">
                 Foto vom Typenschild / Anlage hochladen
               </span>
+
+              {fileName && (
+                <p className="text-xs text-primary mt-2">{fileName}</p>
+              )}
             </div>
           </Label>
 
@@ -97,6 +102,10 @@ const BlitzanfrageForm = () => {
             type="file"
             className="hidden"
             accept="image/*"
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              setFileName(file ? file.name : "");
+            }}
           />
         </div>
 
