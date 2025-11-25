@@ -146,18 +146,16 @@ const ContactFormSection = () => {
                 <div className="border-2 border-dashed border-border rounded-md p-6 hover:border-primary transition-colors text-center">
                   <Upload className="h-8 w-8 mx-auto mb-2 text-muted-foreground" />
                   <span className="text-sm text-muted-foreground">
-                    Foto vom Typenschild / Anlage hochladen (klicken oder
-                    ziehen)
+                    Foto vom Typenschild / Anlage hochladen (klicken oder ziehen)
                   </span>
                 </div>
               </Label>
               <Input
                 id="cf-file-upload"
-                name="attachment"
+                name="file"
                 type="file"
                 className="hidden"
                 accept="image/*"
-                multiple
               />
             </div>
 
