@@ -183,21 +183,25 @@ const ContactFormSection = () => {
               {isSubmitting ? "Wird gesendet..." : "Anfrage absenden"}
             </Button>
 
-            {/* UPDATED CONTACT BUTTONS */}
+            {/* CONTACT BUTTONS FIXED */}
             <div className="border-t border-border pt-6 space-y-3">
               <p className="text-center font-medium text-foreground">
                 Oder jetzt direkt kontaktieren:
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
+
+                {/* Correct landline number */}
                 <Button variant="outline" size="lg" asChild>
                   <a
-                    href="tel:+4915223662354"
+                    href="tel:+4974719429450"
                     className="flex items-center gap-2"
                   >
                     <Phone className="h-4 w-4" />
-                    Jetzt anrufen: +49 1522 3662354
+                    Jetzt anrufen: +49(0)7471-94294-50
                   </a>
                 </Button>
+
+                {/* Correct WhatsApp number */}
                 <Button variant="outline" size="lg" asChild>
                   <a
                     href="https://wa.me/4915223662354"
