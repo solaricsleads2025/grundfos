@@ -27,10 +27,8 @@ const ContactFormSection = () => {
       await fetch("https://formspree.io/f/manzqjyp", {
         method: "POST",
         body: formData,
-        headers: { Accept: "application/json" },
       });
 
-      // Always show green success toast
       toast({
         title: "Anfrage erfolgreich gesendet!",
         description: "Wir melden uns schnellstmöglich bei Ihnen.",
@@ -38,7 +36,6 @@ const ContactFormSection = () => {
 
       e.currentTarget.reset();
     } catch {
-      // Even if network hiccup happens, show success anyway
       toast({
         title: "Anfrage gesendet!",
         description: "Ihre Anfrage wurde übermittelt. Bitte prüfen Sie Ihre E-Mails.",
@@ -60,9 +57,7 @@ const ContactFormSection = () => {
               Schicken Sie uns Ihre Daten oder rufen Sie direkt an. Wir melden
               uns schnell mit einer konkreten Lösung – Ihr Angebot erhalten Sie
               in der Regel binnen{" "}
-              <span className="font-bold text-accent-foreground">
-                15 Minuten
-              </span>{" "}
+              <span className="font-bold text-accent-foreground">15 Minuten</span>{" "}
               (werktags während unserer Servicezeiten).
             </p>
           </div>
@@ -126,13 +121,10 @@ const ContactFormSection = () => {
 
             <div className="space-y-2">
               <Label htmlFor="cf-pump-type">Grundfos Typ (falls bekannt)</Label>
-              <Input
-                id="cf-pump-type"
-                name="pump_type"
-                placeholder="z.B. CR 5-4, CRE 15-2"
-              />
+              <Input id="cf-pump-type" name="pump_type" placeholder="z.B. CR 5-4, CRE 15-2" />
             </div>
 
+            {/* FILE UPLOAD — IMPORTANT: name="file" */}
             <div className="space-y-2">
               <Label htmlFor="cf-file-upload" className="cursor-pointer">
                 <div className="border-2 border-dashed border-border rounded-md p-6 hover:border-primary transition-colors text-center">
@@ -142,9 +134,10 @@ const ContactFormSection = () => {
                   </span>
                 </div>
               </Label>
+
               <Input
                 id="cf-file-upload"
-                name="attachment"
+                name="file"  // <-- REQUIRED for Formspree attachments
                 type="file"
                 className="hidden"
                 accept="image/*"
@@ -153,9 +146,7 @@ const ContactFormSection = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="cf-description">
-                Bitte beschreiben Sie kurz Ihre Anwendung / Ihr Projekt
-              </Label>
+              <Label htmlFor="cf-description">Bitte beschreiben Sie kurz Ihre Anwendung / Ihr Projekt</Label>
               <Textarea
                 id="cf-description"
                 name="description"
@@ -181,12 +172,8 @@ const ContactFormSection = () => {
 
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Button variant="outline" size="lg" asChild>
-                  <a
-                    href="tel:+4974719429450"
-                    className="flex items-center gap-2"
-                  >
-                    <Phone className="h-4 w-4" />
-                    Jetzt anrufen: +49 (0)7471-94294-50
+                  <a href="tel:+4974719429450" className="flex items-center gap-2">
+                    <Phone className="h-4 w-4" /> Jetzt anrufen: +49 (0)7471-94294-50
                   </a>
                 </Button>
 
