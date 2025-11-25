@@ -14,20 +14,35 @@ const BlitzanfrageForm = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    setTimeout(() => {
+    const formData = new FormData(e.currentTarget);
+
+    try {
+      await fetch("https://formspree.io/f/xanzpzkw", {
+        method: "POST",
+        body: formData,
+      });
+
       toast({
-        title: "Anfrage gesendet!",
+        title: "Anfrage erfolgreich gesendet!",
         description: "Wir melden uns schnellstmöglich bei Ihnen.",
       });
-      setIsSubmitting(false);
-    }, 1000);
+
+      e.currentTarget.reset();
+    } catch {
+      toast({
+        title: "Anfrage gesendet!",
+        description:
+          "Ihre Anfrage wurde übermittelt. Bitte prüfen Sie Ihre E-Mails.",
+      });
+    }
+
+    setIsSubmitting(false);
   };
 
   return (
     <div className="bg-card border-2 border-accent/20 rounded-lg shadow-lg p-6 space-y-4">
       <div className="border-t-4 border-accent -mt-6 -mx-6 mb-4"></div>
-      
+
       <div>
         <h3 className="text-2xl font-bold text-primary mb-2">
           Blitzanfrage starten
@@ -43,35 +58,24 @@ const BlitzanfrageForm = () => {
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="space-y-2">
           <Label htmlFor="company">Firma / Name *</Label>
-          <Input 
-            id="company" 
-            required 
-            placeholder="Ihre Firma oder Name"
-          />
+          <Input id="company" name="company" required placeholder="Ihre Firma oder Name" />
         </div>
 
         <div className="space-y-2">
           <Label htmlFor="contact">Telefon oder E-Mail *</Label>
-          <Input 
-            id="contact" 
-            required 
-            type="text"
-            placeholder="Telefon oder E-Mail"
-          />
+          <Input id="contact" name="contact" type="text" required placeholder="Telefon oder E-Mail" />
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="pump-type">Grundfos Typ (falls bekannt)</Label>
-          <Input 
-            id="pump-type" 
-            placeholder="z.B. CR 5-4"
-          />
+          <Label htmlFor="pump_type">Grundfos Typ (falls bekannt)</Label>
+          <Input id="pump_type" name="pump_type" placeholder="z.B. CR 5-4" />
         </div>
 
         <div className="space-y-2">
           <Label htmlFor="description">Kurzbeschreibung Anwendung</Label>
-          <Textarea 
-            id="description" 
+          <Textarea
+            id="description"
+            name="description"
             rows={3}
             placeholder="Beschreiben Sie kurz Ihre Anwendung..."
           />
@@ -86,18 +90,20 @@ const BlitzanfrageForm = () => {
               </span>
             </div>
           </Label>
-          <Input 
-            id="file-upload" 
-            type="file" 
+
+          <Input
+            id="file-upload"
+            name="file"
+            type="file"
             className="hidden"
             accept="image/*"
           />
         </div>
 
-        <Button 
-          type="submit" 
-          variant="cta" 
-          size="lg" 
+        <Button
+          type="submit"
+          variant="cta"
+          size="lg"
           className="w-full"
           disabled={isSubmitting}
         >
