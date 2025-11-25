@@ -10,12 +10,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Upload, Phone, MessageCircle } from "lucide-react";
+import { Upload, Phone, MessageCircle, Image as ImageIcon } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const ContactFormSection = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // NEW: Local preview of selected files
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+
+    const filesArray = Array.from(e.target.files);
+    setSelectedFiles(filesArray);
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -29,19 +39,17 @@ const ContactFormSection = () => {
         body: formData,
       });
 
-      // Always show green success toast
       toast({
         title: "Anfrage erfolgreich gesendet!",
         description: "Wir melden uns schnellstmöglich bei Ihnen.",
       });
 
       e.currentTarget.reset();
+      setSelectedFiles([]);
     } catch {
-      // Show success even on network hiccups
       toast({
         title: "Anfrage gesendet!",
-        description:
-          "Ihre Anfrage wurde übermittelt. Bitte prüfen Sie Ihre E-Mails.",
+        description: "Ihre Anfrage wurde übermittelt. Bitte prüfen Sie Ihre E-Mails.",
       });
     }
 
@@ -60,7 +68,9 @@ const ContactFormSection = () => {
               Schicken Sie uns Ihre Daten oder rufen Sie direkt an. Wir melden
               uns schnell mit einer konkreten Lösung – Ihr Angebot erhalten Sie
               in der Regel binnen{" "}
-              <span className="font-bold text-accent-foreground">15 Minuten</span>{" "}
+              <span className="font-bold text-accent-foreground">
+                15 Minuten
+              </span>{" "}
               (werktags während unserer Servicezeiten).
             </p>
           </div>
@@ -131,7 +141,7 @@ const ContactFormSection = () => {
               />
             </div>
 
-            {/* FILE UPLOAD (multiple files supported) */}
+            {/* FILE UPLOAD WITH PREVIEW */}
             <div className="space-y-2">
               <Label htmlFor="cf-file-upload" className="cursor-pointer">
                 <div className="border-2 border-dashed border-border rounded-md p-6 hover:border-primary transition-colors text-center">
@@ -144,12 +154,28 @@ const ContactFormSection = () => {
 
               <Input
                 id="cf-file-upload"
-                name="file"    // Required for Formspree attachments
+                name="file"
                 type="file"
                 className="hidden"
                 accept="image/*"
                 multiple
+                onChange={handleFileChange}
               />
+
+              {/* SHOW SELECTED FILES */}
+              {selectedFiles.length > 0 && (
+                <div className="mt-2 space-y-1">
+                  {selectedFiles.map((file, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-center gap-2 text-sm text-muted-foreground"
+                    >
+                      <ImageIcon className="h-4 w-4" />
+                      <span>{file.name}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
 
             <div className="space-y-2">
@@ -182,7 +208,8 @@ const ContactFormSection = () => {
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Button variant="outline" size="lg" asChild>
                   <a href="tel:+4974719429450" className="flex items-center gap-2">
-                    <Phone className="h-4 w-4" /> Jetzt anrufen: +49 (0)7471-94294-50
+                    <Phone className="h-4 w-4" />
+                    Jetzt anrufen: +49 (0)7471-94294-50
                   </a>
                 </Button>
 
