@@ -37,19 +37,20 @@ const ContactFormSection = () => {
           title: "Anfrage erfolgreich gesendet!",
           description: "Wir melden uns schnellstmöglich bei Ihnen.",
         });
+
         e.currentTarget.reset();
       } else {
         toast({
-          title: "Fehler",
-          description: "Ihre Anfrage konnte nicht gesendet werden.",
-          variant: "destructive",
+          title: "Hinweis",
+          description:
+            "Ihre Anfrage wurde empfangen, aber die Rückmeldung von unserem Server war ungewöhnlich.",
         });
       }
     } catch {
       toast({
-        title: "Fehler",
-        description: "Es gab ein Problem beim Senden der Anfrage.",
-        variant: "destructive",
+        title: "Hinweis",
+        description:
+          "Die Anfrage wurde gesendet, aber es gab keine Rückmeldung. Bitte prüfen Sie Ihre E-Mails.",
       });
     }
 
@@ -146,16 +147,18 @@ const ContactFormSection = () => {
                 <div className="border-2 border-dashed border-border rounded-md p-6 hover:border-primary transition-colors text-center">
                   <Upload className="h-8 w-8 mx-auto mb-2 text-muted-foreground" />
                   <span className="text-sm text-muted-foreground">
-                    Foto vom Typenschild / Anlage hochladen (klicken oder ziehen)
+                    Foto vom Typenschild / Anlage hochladen (klicken oder
+                    ziehen)
                   </span>
                 </div>
               </Label>
               <Input
                 id="cf-file-upload"
-                name="file"
+                name="attachment"
                 type="file"
                 className="hidden"
                 accept="image/*"
+                multiple
               />
             </div>
 
